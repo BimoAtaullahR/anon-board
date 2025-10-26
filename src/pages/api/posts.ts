@@ -18,7 +18,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse <Pesan
     res.status(200).json(pesann);
   }
   else if(req.method==="POST"){
-    pesann = [{message: JSON.parse(req.body), time: new Date(), id: id}, ...pesann];
+    pesann = [{message: req.body, time: new Date(), id: id}, ...pesann];
     id++;
     res.status(200);
   }
