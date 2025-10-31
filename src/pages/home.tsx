@@ -15,9 +15,7 @@ type Pesan = {
 };
 
 // satisfies GetServerSideProps<{ pesann: Pesan }>
-export const getServerSideProps: GetServerSideProps<{
-  pesan: Pesan[];
-}> = async (context: GetServerSidePropsContext) => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const supabase = createClient(context);
   const res = await fetch('http://localhost:3000/api/posts')
   const pesann = await res.json()
@@ -33,12 +31,10 @@ export const getServerSideProps: GetServerSideProps<{
     }
   }
 
-  return { props: { pesan: pesann, user: data.user } };
+  return { props: { user: data.user, pesan: pesann } };
 };
 
-export default function HomePage({
-  pesan,
-}: InferGetServerSidePropsType<typeof getServerSideProps>, {user}: {user:User}) {
+export default function HomePage({user}: {user: User}, {pesan}: {pesan: Pesan[]}) {
   return (
     <div className="w-screen">
       <hr className="mt-10" />
